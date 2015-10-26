@@ -21,6 +21,13 @@ import re
 
 class GemfileParser:
 
+    gemname_regex = re.compile(r"(?P<gemname>[a-zA-Z]+[0-9a-zA-Z _-]*)")
+    req_regex = re.compile(r"(?P<reqs>([>|<|=|~>|\d]+[ ]*[0-9\.\w]+[ ,]*)+)")
+    source_regex = re.compile(r"source:[ ]?(?P<source>[a-zA-Z:\/\.-]+)")
+    autoreq_regex = re.compile(r"require:[ ]?(?P<autoreq>[a-zA-Z:\/\.-]+)")
+    group_regex = re.compile(r"group:[ ]?(?P<groupname>[a-zA-Z:\/\.-]+)")
+    group_block_regex = re.compile(r"group[ ]?:[ ]?(?P<groupblock>.*?) do")
+
     GROUP = 'runtime'
 
     class Dependency:
@@ -36,17 +43,15 @@ class GemfileParser:
         def __str__(self):
             return self.name + ", " + self.requirement
 
-    gemname_regex = re.compile(r"(?P<gemname>[a-zA-Z]+[0-9a-zA-Z _-]*)")
-    req_regex = re.compile(r"(?P<reqs>([>|<|=|~>|\d]+[ ]*[0-9\.\w]+[ ,]*)+)")
-    source_regex = re.compile(r"source:[ ]?(?P<source>[a-zA-Z:\/\.-]+)")
-    autoreq_regex = re.compile(r"require:[ ]?(?P<autoreq>[a-zA-Z:\/\.-]+)")
-    group_regex = re.compile(r"group:[ ]?(?P<groupname>[a-zA-Z:\/\.-]+)")
-    group_block_regex = re.compile(r"group[ ]?:[ ]?(?P<groupblock>.*) do")
-
-    def __init__(self, filepath):
+    def __init__(self, filepath, appname=''):
         self.gemfile = open(filepath)
-        self.dependencies = {'development': [],
-                             'runtime': [], 'test': [], 'production': []}
+        self.appname = appname
+        self.dependencies = {
+                                'development': [],
+                                'runtime': [],
+                                'test': [],
+                                'production': []
+                            }
         self.contents = self.gemfile.readlines()
         if filepath.endswith('gemspec'):
             self.gemspec = True
@@ -54,6 +59,8 @@ class GemfileParser:
             self.gemspec = False
 
     def parse(self):
+        ''' Returns a dictionary of dependency objects categorized under
+        groups.'''
         for line in self.contents:
             line = line.strip()
             if line.startswith('source') or line.startswith('#'):
@@ -67,40 +74,43 @@ class GemfileParser:
             elif line.startswith('gem'):
                 line = line[3:]
                 linefile = StringIO.StringIO(line)
-                for i in csv.reader(linefile, delimiter=','):
-                    m = []
-                    for k in i:
-                        l = k.replace("'", "").replace('"', "").strip()
-                        if "#" in l:
-                            l = l[:l.index("#")]
-                        m.append(l)
+                for line in csv.reader(linefile, delimiter=','):
+                    column_list = []
+                    for column in line:
+                        stripped_column = column.replace("'", "")
+                        stripped_column = stripped_column.replace('"', "")
+                        stripped_column = stripped_column.strip()
+                        if "#" in stripped_column:
+                            pos = stripped_column.index("#")
+                            stripped_column = stripped_column[:pos]
+                        column_list.append(stripped_column)
                     dep = self.Dependency()
                     dep.group = self.GROUP
-                    for k in m:
-                        match = self.source_regex.match(k)
+                    dep.parent = self.appname
+                    for column in column_list:
+                        match = self.source_regex.match(column)
                         if match:
                             dep.source = match.group('source')
                             continue
-                        match = self.group_regex.match(k)
+                        match = self.group_regex.match(column)
                         if match:
                             dep.group = match.group('groupname')
                             continue
-                        match = self.autoreq_regex.match(k)
+                        match = self.autoreq_regex.match(column)
                         if match:
                             dep.autorequire = match.group('autoreq')
                             continue
-                        match = self.gemname_regex.match(k)
+                        match = self.gemname_regex.match(column)
                         if match:
                             dep.name = match.group('gemname')
                             continue
-                        match = self.req_regex.match(k)
+                        match = self.req_regex.match(column)
                         if match:
                             if dep.requirement == '':
                                 dep.requirement = match.group('reqs')
                             else:
                                 dep.requirement += ' ' + match.group('reqs')
                             continue
-                    dep.parent = 'diaspora'
                     if self.GROUP in self.dependencies:
                         self.dependencies[self.GROUP].append(dep)
                     else:
