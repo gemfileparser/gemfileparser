@@ -111,16 +111,8 @@ class GemfileParser:
                             else:
                                 dep.requirement += ' ' + match.group('reqs')
                             continue
-                    if self.GROUP in self.dependencies:
-                        self.dependencies[self.GROUP].append(dep)
+                    if dep.group in self.dependencies:
+                        self.dependencies[dep.group].append(dep)
                     else:
-                        self.dependencies[self.GROUP] = [dep]
+                        self.dependencies[dep.group] = [dep]
         return self.dependencies
-
-if __name__ == "__main__":
-    n = GemfileParser('Gemfile')
-    deps = n.parse()
-    for key in deps:
-        print key
-        for dependency in deps[key]:
-            print "\t", dependency
