@@ -13,7 +13,7 @@ python setup.py install
 ### Usage
 ```
 from gemfileparser import gemfileparser
-parser = gemfileparser.GemfileParser(<path to Gemfile>)
+parser = gemfileparser.GemfileParser(<path to Gemfile>, <name of the application (optional)>)
 dependency_dictionary = parser.parse()
 ```
 The parse() method returns a dict object of the following format
@@ -38,7 +38,7 @@ group - Group in which gem is a member of (default : runtime)
 #### Example
 ```
 from gemfileparser import gemfileparser
-n = gemfileparser.GemfileParser('Gemfile')
+n = gemfileparser.GemfileParser('Gemfile', 'diaspora')
 deps = n.parse()
 for key in deps:
    if deps[key]:
