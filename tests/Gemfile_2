@@ -1,0 +1,7 @@
+source "https://rubygems.org"
+
+gem "rails", "4.2.4", source: "http://www.example.com"
+
+group :development do
+gem "responders", "3.0.0"
+end
