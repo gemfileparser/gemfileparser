@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import csv
-import io
+import StringIO
 import re
 
 
@@ -73,7 +73,7 @@ class GemfileParser:
                 self.GROUP = 'runtime'
             elif line.startswith('gem'):
                 line = line[3:]
-                linefile = io.StringIO(line)
+                linefile = StringIO.StringIO(line)
                 for line in csv.reader(linefile, delimiter=','):
                     column_list = []
                     for column in line:
