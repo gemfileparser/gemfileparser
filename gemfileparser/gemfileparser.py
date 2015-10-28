@@ -27,6 +27,8 @@ class GemfileParser:
     autoreq_regex = re.compile(r"require:[ ]?(?P<autoreq>[a-zA-Z:\/\.-]+)")
     group_regex = re.compile(r"group:[ ]?(?P<groupname>[a-zA-Z:\/\.-]+)")
     group_block_regex = re.compile(r"group[ ]?:[ ]?(?P<groupblock>.*?) do")
+    add_dvtdep_regex = re.compile(r".*add_development_dependency (?P<line>.*)")
+    add_rundep_regex = re.compile(r".*add_runtime_dependency (?P<line>.*)")
 
     GROUP = 'runtime'
 
@@ -58,10 +60,12 @@ class GemfileParser:
         else:
             self.gemspec = False
 
-    def parse(self):
-        ''' Returns a dictionary of dependency objects categorized under
-        groups.'''
-        for line in self.contents:
+    def parse_gemfile(self, path=''):
+        if path == '':
+            contents = self.contents
+        else:
+            contents = open(path).readlines()
+        for line in contents:
             line = line.strip()
             if line.startswith('source') or line.startswith('#'):
                 continue
@@ -71,8 +75,12 @@ class GemfileParser:
                     self.GROUP = match.group('groupblock')
             elif line.startswith('end'):
                 self.GROUP = 'runtime'
+            elif line.startswith('gemspec'):
+                print 'gemspec'
+                self.parse_gemspec(path='sample.gemspec')
+                print self.dependencies
             elif line.startswith('gem'):
-                line = line[3:]
+                line = unicode(line[3:])
                 linefile = io.StringIO(line)
                 for line in csv.reader(linefile, delimiter=','):
                     column_list = []
@@ -116,3 +124,72 @@ class GemfileParser:
                     else:
                         self.dependencies[dep.group] = [dep]
         return self.dependencies
+
+    def parse_gemspec(self, path=''):
+        if path == '':
+            contents = self.contents
+        else:
+            contents = open(path).readlines()
+        for line in contents:
+            line = line.strip()
+            print line
+            match = self.add_dvtdep_regex.match(line)
+            if match:
+                self.GROUP = 'development'
+            else:
+                match = self.add_rundep_regex.match(line)
+                if match:
+                    self.GROUP = 'runtime'
+            if match:
+                line = unicode(match.group('line'))
+                linefile = io.StringIO(line)
+                for line in csv.reader(linefile, delimiter=','):
+                    column_list = []
+                    for column in line:
+                        stripped_column = column.replace("'", "")
+                        stripped_column = stripped_column.replace('"', "")
+                        stripped_column = stripped_column.strip()
+                        if "#" in stripped_column:
+                            pos = stripped_column.index("#")
+                            stripped_column = stripped_column[:pos]
+                        column_list.append(stripped_column)
+                    dep = self.Dependency()
+                    dep.group = self.GROUP
+                    dep.parent = self.appname
+                    for column in column_list:
+                        match = self.source_regex.match(column)
+                        if match:
+                            dep.source = match.group('source')
+                            continue
+                        match = self.group_regex.match(column)
+                        if match:
+                            dep.group = match.group('groupname')
+                            continue
+                        match = self.autoreq_regex.match(column)
+                        if match:
+                            dep.autorequire = match.group('autoreq')
+                            continue
+                        match = self.gemname_regex.match(column)
+                        if match:
+                            dep.name = match.group('gemname')
+                            continue
+                        match = self.req_regex.match(column)
+                        if match:
+                            if dep.requirement == '':
+                                dep.requirement = match.group('reqs')
+                            else:
+                                dep.requirement += ' ' + match.group('reqs')
+                            continue
+                    if dep.group in self.dependencies:
+                        self.dependencies[dep.group].append(dep)
+                    else:
+                        self.dependencies[dep.group] = [dep]
+        return self.dependencies
+
+    def parse(self):
+        ''' Returns a dictionary of dependency objects categorized under
+        groups.'''
+        if self.gemspec:
+            return self.parse_gemspec()
+        else:
+            return self.parse_gemfile()
