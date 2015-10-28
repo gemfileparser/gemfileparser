@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from nose.tools import assert_equal
+from nose.tools import assert_equal, assert_in
 from gemfileparser import gemfileparser
 
 
@@ -41,3 +41,10 @@ def test_source():
     dependencies = gemparser.parse()
     assert_equal(dependencies['runtime'][0].source,
                  'http://www.example.com')
+
+
+def test_gemspec():
+    gemparser = gemfileparser.GemfileParser('tests/Gemfile_2')
+    dependencies = gemparser.parse()
+    assert_in('rails', [x.name for x in dependencies['runtime']])
+    assert_in('responders', [x.name for x in dependencies['development']])
