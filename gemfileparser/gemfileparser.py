@@ -35,6 +35,7 @@ class GemfileParser:
     GROUP = 'runtime'
 
     class Dependency:
+        ''' A class to hold information about a dependency gem.'''
 
         def __init__(self):
             self.name = ''
@@ -48,7 +49,7 @@ class GemfileParser:
             return self.name + ", " + self.requirement
 
     def __init__(self, filepath, appname=''):
-        self.filepath = filepath
+        self.filepath = filepath    # Required when calls to gemspec occurs
         self.gemfile = open(filepath)
         self.appname = appname
         self.dependencies = {
@@ -63,16 +64,75 @@ class GemfileParser:
         else:
             self.gemspec = False
 
+    def preprocess(self, line):
+        if "#" in line:
+            line = line[:line.index('#')]
+        line = line.strip()
+        return line
+
+    def parse_line(self, line):
+        try:
+
+            # StringIO requires a unicode object.
+            # But unicode() doesn't work with Python3
+            # as it is already in unicode format.
+            # So, first try converting and if that fails, use original.
+
+            line = unicode(line)
+        except:
+            pass
+        linefile = io.StringIO(line)    # csv requires a file object
+        for line in csv.reader(linefile, delimiter=','):
+            column_list = []
+            for column in line:
+                stripped_column = column.replace("'", "")
+                stripped_column = stripped_column.replace('"', "")
+                stripped_column = stripped_column.strip()
+                column_list.append(stripped_column)
+            dep = self.Dependency()
+            dep.group = self.GROUP
+            dep.parent = self.appname
+            for column in column_list:
+                # Check for a match in each regex and assign to
+                # corresponding variables
+                match = self.source_regex.match(column)
+                if match:
+                    dep.source = match.group('source')
+                    continue
+                match = self.group_regex.match(column)
+                if match:
+                    dep.group = match.group('groupname')
+                    continue
+                match = self.autoreq_regex.match(column)
+                if match:
+                    dep.autorequire = match.group('autoreq')
+                    continue
+                match = self.gemname_regex.match(column)
+                if match:
+                    dep.name = match.group('gemname')
+                    continue
+                match = self.req_regex.match(column)
+                if match:
+                    if dep.requirement == '':
+                        dep.requirement = match.group('reqs')
+                    else:
+                        dep.requirement += ' ' + match.group('reqs')
+                    continue
+            if dep.group in self.dependencies:
+                self.dependencies[dep.group].append(dep)
+            else:
+                self.dependencies[dep.group] = [dep]
+
     def parse_gemfile(self, path=''):
+        '''Parses a Gemfile and returns a dict of categorized dependencies.'''
+
         if path == '':
             contents = self.contents
         else:
             contents = open(path).readlines()
         for line in contents:
-            line = line.strip()
-            if "#" in line:
-                line = line[:line.index('#')]
-            if line == '' or line.startswith('source') or line.startswith('#'):
+            line = self.preprocess(line)
+            if line == '' or line.startswith('source'):
                 continue
             elif line.startswith('group'):
                 match = self.group_block_regex.match(line)
@@ -81,57 +141,17 @@ class GemfileParser:
             elif line.startswith('end'):
                 self.GROUP = 'runtime'
             elif line.startswith('gemspec'):
+                # Gemfile contains a call to gemspec
                 gemfiledir = os.path.dirname(self.filepath)
                 gemspec_list = glob.glob(os.path.join(gemfiledir, "*.gemspec"))
                 if len(gemspec_list) > 1:
-                    print "Multiple gemspec files found"
+                    print("Multiple gemspec files found")
                     continue
                 gemspec_file = gemspec_list[0]
                 self.parse_gemspec(path=os.path.join(gemfiledir, gemspec_file))
-            elif line.startswith('gem'):
-                line = unicode(line[3:])
-                linefile = io.StringIO(line)
-                for line in csv.reader(linefile, delimiter=','):
-                    column_list = []
-                    for column in line:
-                        stripped_column = column.replace("'", "")
-                        stripped_column = stripped_column.replace('"', "")
-                        stripped_column = stripped_column.strip()
-                        if "#" in stripped_column:
-                            pos = stripped_column.index("#")
-                            stripped_column = stripped_column[:pos]
-                        column_list.append(stripped_column)
-                    dep = self.Dependency()
-                    dep.group = self.GROUP
-                    dep.parent = self.appname
-                    for column in column_list:
-                        match = self.source_regex.match(column)
-                        if match:
-                            dep.source = match.group('source')
-                            continue
-                        match = self.group_regex.match(column)
-                        if match:
-                            dep.group = match.group('groupname')
-                            continue
-                        match = self.autoreq_regex.match(column)
-                        if match:
-                            dep.autorequire = match.group('autoreq')
-                            continue
-                        match = self.gemname_regex.match(column)
-                        if match:
-                            dep.name = match.group('gemname')
-                            continue
-                        match = self.req_regex.match(column)
-                        if match:
-                            if dep.requirement == '':
-                                dep.requirement = match.group('reqs')
-                            else:
-                                dep.requirement += ' ' + match.group('reqs')
-                            continue
-                    if dep.group in self.dependencies:
-                        self.dependencies[dep.group].append(dep)
-                    else:
-                        self.dependencies[dep.group] = [dep]
+            elif line.startswith('gem '):
+                line = line[3:]
+                self.parse_line(line)
         return self.dependencies
 
     def parse_gemspec(self, path=''):
@@ -140,7 +160,7 @@ class GemfileParser:
         else:
             contents = open(path).readlines()
         for line in contents:
-            line = line.strip()
+            line = self.preprocess(line)
             match = self.add_dvtdep_regex.match(line)
             if match:
                 self.GROUP = 'development'
@@ -149,54 +169,13 @@ class GemfileParser:
                 if match:
                     self.GROUP = 'runtime'
             if match:
-                line = unicode(match.group('line'))
-                linefile = io.StringIO(line)
-                for line in csv.reader(linefile, delimiter=','):
-                    column_list = []
-                    for column in line:
-                        stripped_column = column.replace("'", "")
-                        stripped_column = stripped_column.replace('"', "")
-                        stripped_column = stripped_column.strip()
-                        if "#" in stripped_column:
-                            pos = stripped_column.index("#")
-                            stripped_column = stripped_column[:pos]
-                        column_list.append(stripped_column)
-                    dep = self.Dependency()
-                    dep.group = self.GROUP
-                    dep.parent = self.appname
-                    for column in column_list:
-                        match = self.source_regex.match(column)
-                        if match:
-                            dep.source = match.group('source')
-                            continue
-                        match = self.group_regex.match(column)
-                        if match:
-                            dep.group = match.group('groupname')
-                            continue
-                        match = self.autoreq_regex.match(column)
-                        if match:
-                            dep.autorequire = match.group('autoreq')
-                            continue
-                        match = self.gemname_regex.match(column)
-                        if match:
-                            dep.name = match.group('gemname')
-                            continue
-                        match = self.req_regex.match(column)
-                        if match:
-                            if dep.requirement == '':
-                                dep.requirement = match.group('reqs')
-                            else:
-                                dep.requirement += ' ' + match.group('reqs')
-                            continue
-                    if dep.group in self.dependencies:
-                        self.dependencies[dep.group].append(dep)
-                    else:
-                        self.dependencies[dep.group] = [dep]
+                line = match.group('line')
+                self.parse_line(line)
         return self.dependencies
 
     def parse(self):
-        ''' Returns a dictionary of dependency objects categorized under
-        groups.'''
+        '''Calls necessary function based on whether file is a gemspec file
+        or not and forwards the dicts returned by them.'''
         if self.gemspec:
             return self.parse_gemspec()
         else:
