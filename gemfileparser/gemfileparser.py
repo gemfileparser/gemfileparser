@@ -17,6 +17,8 @@
 import csv
 import io
 import re
+import os
+import glob
 
 
 class GemfileParser:
@@ -46,6 +48,7 @@ class GemfileParser:
             return self.name + ", " + self.requirement
 
     def __init__(self, filepath, appname=''):
+        self.filepath = filepath
         self.gemfile = open(filepath)
         self.appname = appname
         self.dependencies = {
@@ -67,7 +70,9 @@ class GemfileParser:
             contents = open(path).readlines()
         for line in contents:
             line = line.strip()
-            if line.startswith('source') or line.startswith('#'):
+            if "#" in line:
+                line = line[:line.index('#')]
+            if line == '' or line.startswith('source') or line.startswith('#'):
                 continue
             elif line.startswith('group'):
                 match = self.group_block_regex.match(line)
@@ -76,9 +81,13 @@ class GemfileParser:
             elif line.startswith('end'):
                 self.GROUP = 'runtime'
             elif line.startswith('gemspec'):
-                print 'gemspec'
-                self.parse_gemspec(path='sample.gemspec')
-                print self.dependencies
+                gemfiledir = os.path.dirname(self.filepath)
+                gemspec_list = glob.glob(os.path.join(gemfiledir, "*.gemspec"))
+                if len(gemspec_list) > 1:
+                    print "Multiple gemspec files found"
+                    continue
+                gemspec_file = gemspec_list[0]
+                self.parse_gemspec(path=os.path.join(gemfiledir, gemspec_file))
             elif line.startswith('gem'):
                 line = unicode(line[3:])
                 linefile = io.StringIO(line)
@@ -132,7 +141,6 @@ class GemfileParser:
             contents = open(path).readlines()
         for line in contents:
             line = line.strip()
-            print line
             match = self.add_dvtdep_regex.match(line)
             if match:
                 self.GROUP = 'development'
