@@ -1,5 +1,5 @@
 # gemfileparser
-Parse Ruby Gemfile's using Python.
+Parse Ruby Gemfile's using Python. Supports Gemfiles and .gemspec files.
 
 ### Installation
 If using pip, use the command `sudo pip install gemfileparser`  
