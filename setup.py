@@ -10,7 +10,7 @@ config = {
     'url': 'https://gitlab.com/balasankarc/gemfileparser',
     'download_url': 'https://gitlab.com/balasankarc/gemfileparser',
     'author_email': 'balasankarc@autistici.org',
-    'version': '0.3',
+    'version': '0.4',
     'license': 'GPL-3+',
     'long_description': '''
 Installation
@@ -88,4 +88,11 @@ gemfileparser is released under `GNU GPL version 3 (or above) License`_.
     'name': 'gemfileparser'
 }
 
-setup(**config)
+setup(
+    classifiers=[
+        # Indicate who your project is intended for
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.4',
+    ], **config)
