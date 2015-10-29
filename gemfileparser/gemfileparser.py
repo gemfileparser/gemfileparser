@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+'''Python library to parse Ruby's Gemfiles and gemspec files.'''
+
 import csv
 import io
 import re
@@ -21,20 +23,10 @@ import os
 import glob
 
 
-class GemfileParser:
+class GemfileParser(object):
+    '''Creates a GemfileParser object to perform operations. '''
 
-    gemname_regex = re.compile(r"(?P<gemname>[a-zA-Z]+[0-9a-zA-Z _-]*)")
-    req_regex = re.compile(r"(?P<reqs>([>|<|=|~>|\d]+[ ]*[0-9\.\w]+[ ,]*)+)")
-    source_regex = re.compile(r"source:[ ]?(?P<source>[a-zA-Z:\/\.-]+)")
-    autoreq_regex = re.compile(r"require:[ ]?(?P<autoreq>[a-zA-Z:\/\.-]+)")
-    group_regex = re.compile(r"group:[ ]?(?P<groupname>[a-zA-Z:\/\.-]+)")
-    group_block_regex = re.compile(r"group[ ]?:[ ]?(?P<groupblock>.*?) do")
-    add_dvtdep_regex = re.compile(r".*add_development_dependency (?P<line>.*)")
-    add_rundep_regex = re.compile(r".*add_runtime_dependency (?P<line>.*)")
-
-    GROUP = 'runtime'
-
-    class Dependency:
+    class Dependency(object):
         ''' A class to hold information about a dependency gem.'''
 
         def __init__(self):
@@ -48,29 +40,45 @@ class GemfileParser:
         def __str__(self):
             return self.name + ", " + self.requirement
 
+    gemname_regex = re.compile(r"(?P<gemname>[a-zA-Z]+[0-9a-zA-Z _-]*)")
+    req_regex = re.compile(r"(?P<reqs>([>|<|=|~>|\d]+[ ]*[0-9\.\w]+[ ,]*)+)")
+    source_regex = re.compile(r"source:[ ]?(?P<source>[a-zA-Z:\/\.-]+)")
+    autoreq_regex = re.compile(r"require:[ ]?(?P<autoreq>[a-zA-Z:\/\.-]+)")
+    group_regex = re.compile(r"group:[ ]?(?P<groupname>[a-zA-Z:\/\.-]+)")
+    group_block_regex = re.compile(r"group[ ]?:[ ]?(?P<groupblock>.*?) do")
+    add_dvtdep_regex = re.compile(r".*add_development_dependency (?P<line>.*)")
+    add_rundep_regex = re.compile(r".*add_runtime_dependency (?P<line>.*)")
+
+    global_group = 'runtime'
+
     def __init__(self, filepath, appname=''):
         self.filepath = filepath    # Required when calls to gemspec occurs
         self.gemfile = open(filepath)
         self.appname = appname
         self.dependencies = {
-                                'development': [],
-                                'runtime': [],
-                                'test': [],
-                                'production': []
-                            }
+            'development': [],
+            'runtime': [],
+            'test': [],
+            'production': []
+        }
         self.contents = self.gemfile.readlines()
         if filepath.endswith('gemspec'):
             self.gemspec = True
         else:
             self.gemspec = False
 
-    def preprocess(self, line):
+    @staticmethod
+    def preprocess(line):
+        '''Removes the comment portion and excess spaces.'''
+
         if "#" in line:
             line = line[:line.index('#')]
         line = line.strip()
         return line
 
     def parse_line(self, line):
+        '''Parses each line and creates dependency objects accordingly'''
+
         try:
 
             # StringIO requires a unicode object.
@@ -79,7 +87,7 @@ class GemfileParser:
             # So, first try converting and if that fails, use original.
 
             line = unicode(line)
-        except:
+        except TypeError:
             pass
         linefile = io.StringIO(line)    # csv requires a file object
         for line in csv.reader(linefile, delimiter=','):
@@ -90,7 +98,7 @@ class GemfileParser:
                 stripped_column = stripped_column.strip()
                 column_list.append(stripped_column)
             dep = self.Dependency()
-            dep.group = self.GROUP
+            dep.group = self.global_group
             dep.parent = self.appname
             for column in column_list:
                 # Check for a match in each regex and assign to
@@ -137,9 +145,9 @@ class GemfileParser:
             elif line.startswith('group'):
                 match = self.group_block_regex.match(line)
                 if match:
-                    self.GROUP = match.group('groupblock')
+                    self.global_group = match.group('groupblock')
             elif line.startswith('end'):
-                self.GROUP = 'runtime'
+                self.global_group = 'runtime'
             elif line.startswith('gemspec'):
                 # Gemfile contains a call to gemspec
                 gemfiledir = os.path.dirname(self.filepath)
@@ -155,6 +163,8 @@ class GemfileParser:
         return self.dependencies
 
     def parse_gemspec(self, path=''):
+        '''Method to handle gemspec files.'''
+
         if path == '':
             contents = self.contents
         else:
@@ -163,11 +173,11 @@ class GemfileParser:
             line = self.preprocess(line)
             match = self.add_dvtdep_regex.match(line)
             if match:
-                self.GROUP = 'development'
+                self.global_group = 'development'
             else:
                 match = self.add_rundep_regex.match(line)
                 if match:
-                    self.GROUP = 'runtime'
+                    self.global_group = 'runtime'
             if match:
                 line = match.group('line')
                 self.parse_line(line)
