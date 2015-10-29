@@ -21,6 +21,7 @@ import io
 import re
 import os
 import glob
+import collections
 
 
 class GemfileParser(object):
@@ -40,16 +41,24 @@ class GemfileParser(object):
         def __str__(self):
             return self.name + ", " + self.requirement
 
-    gemname_regex = re.compile(r"(?P<gemname>[a-zA-Z]+[0-9a-zA-Z _-]*)")
-    req_regex = re.compile(r"(?P<reqs>([>|<|=|~>|\d]+[ ]*[0-9\.\w]+[ ,]*)+)")
-    source_regex = re.compile(r"source:[ ]?(?P<source>[a-zA-Z:\/\.-]+)")
-    autoreq_regex = re.compile(r"require:[ ]?(?P<autoreq>[a-zA-Z:\/\.-]+)")
-    group_regex = re.compile(r"group:[ ]?(?P<groupname>[a-zA-Z:\/\.-]+)")
-    group_block_regex = re.compile(r"group[ ]?:[ ]?(?P<groupblock>.*?) do")
-    add_dvtdep_regex = re.compile(r".*add_development_dependency (?P<line>.*)")
-    add_rundep_regex = re.compile(r".*add_runtime_dependency (?P<line>.*)")
-
+    gemfile_regexes = collections.OrderedDict()
+    gemfile_regexes['source'] = re.compile(
+        r"source:[ ]?(?P<source>[a-zA-Z:\/\.-]+)")
+    gemfile_regexes['autorequire'] = re.compile(
+        r"require:[ ]?(?P<autorequire>[a-zA-Z:\/\.-]+)")
+    gemfile_regexes['group'] = re.compile(
+        r"group:[ ]?(?P<group>[a-zA-Z:\/\.-]+)")
+    gemfile_regexes['name'] = re.compile(
+        r"(?P<name>[a-zA-Z]+[0-9a-zA-Z _-]*)")
+    gemfile_regexes['requirement'] = re.compile(
+        r"(?P<requirement>([>|<|=|~>|\d]+[ ]*[0-9\.\w]+[ ,]*)+)")
     global_group = 'runtime'
+    group_block_regex = re.compile(
+        r"group[ ]?:[ ]?(?P<groupblock>.*?) do")
+    add_dvtdep_regex = re.compile(
+        r".*add_development_dependency (?P<line>.*)")
+    add_rundep_regex = re.compile(
+        r".*add_runtime_dependency (?P<line>.*)")
 
     def __init__(self, filepath, appname=''):
         self.filepath = filepath    # Required when calls to gemspec occurs
@@ -98,34 +107,23 @@ class GemfileParser(object):
                 stripped_column = stripped_column.strip()
                 column_list.append(stripped_column)
             dep = self.Dependency()
-            dep.group = self.global_group
+            dep.group = GemfileParser.global_group
             dep.parent = self.appname
             for column in column_list:
                 # Check for a match in each regex and assign to
                 # corresponding variables
-                match = self.source_regex.match(column)
-                if match:
-                    dep.source = match.group('source')
-                    continue
-                match = self.group_regex.match(column)
-                if match:
-                    dep.group = match.group('groupname')
-                    continue
-                match = self.autoreq_regex.match(column)
-                if match:
-                    dep.autorequire = match.group('autoreq')
-                    continue
-                match = self.gemname_regex.match(column)
-                if match:
-                    dep.name = match.group('gemname')
-                    continue
-                match = self.req_regex.match(column)
-                if match:
-                    if dep.requirement == '':
-                        dep.requirement = match.group('reqs')
-                    else:
-                        dep.requirement += ' ' + match.group('reqs')
-                    continue
+                for criteria in GemfileParser.gemfile_regexes:
+                    criteria_regex = GemfileParser.gemfile_regexes[criteria]
+                    match = criteria_regex.match(column)
+                    if match:
+                        if criteria == 'requirement':
+                            if dep.requirement == '':
+                                dep.requirement = match.group(criteria)
+                            else:
+                                dep.requirement += ' ' + match.group(criteria)
+                        else:
+                            setattr(dep, criteria, match.group(criteria))
+                        break
             if dep.group in self.dependencies:
                 self.dependencies[dep.group].append(dep)
             else:
@@ -145,9 +143,9 @@ class GemfileParser(object):
             elif line.startswith('group'):
                 match = self.group_block_regex.match(line)
                 if match:
-                    self.global_group = match.group('groupblock')
+                    GemfileParser.global_group = match.group('groupblock')
             elif line.startswith('end'):
-                self.global_group = 'runtime'
+                GemfileParser.global_group = 'runtime'
             elif line.startswith('gemspec'):
                 # Gemfile contains a call to gemspec
                 gemfiledir = os.path.dirname(self.filepath)
@@ -171,13 +169,13 @@ class GemfileParser(object):
             contents = open(path).readlines()
         for line in contents:
             line = self.preprocess(line)
-            match = self.add_dvtdep_regex.match(line)
+            match = GemfileParser.add_dvtdep_regex.match(line)
             if match:
-                self.global_group = 'development'
+                GemfileParser.global_group = 'development'
             else:
-                match = self.add_rundep_regex.match(line)
+                match = GemfileParser.add_rundep_regex.match(line)
                 if match:
-                    self.global_group = 'runtime'
+                    GemfileParser.global_group = 'runtime'
             if match:
                 line = match.group('line')
                 self.parse_line(line)
