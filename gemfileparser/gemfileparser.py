@@ -96,7 +96,7 @@ class GemfileParser(object):
             # So, first try converting and if that fails, use original.
 
             line = unicode(line)
-        except TypeError:
+        except NameError:
             pass
         linefile = io.StringIO(line)    # csv requires a file object
         for line in csv.reader(linefile, delimiter=','):
