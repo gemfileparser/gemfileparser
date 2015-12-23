@@ -49,7 +49,7 @@ class GemfileParser(object):
     gemfile_regexes['group'] = re.compile(
         r"group:[ ]?(?P<group>[a-zA-Z:\/\.-]+)")
     gemfile_regexes['name'] = re.compile(
-        r"(?P<name>[a-zA-Z]+[0-9a-zA-Z _-]*)")
+        r"(?P<name>[a-zA-Z]+[\.0-9a-zA-Z _-]*)")
     gemfile_regexes['requirement'] = re.compile(
         r"(?P<requirement>([>|<|=|~>|\d]+[ ]*[0-9\.\w]+[ ,]*)+)")
     global_group = 'runtime'
