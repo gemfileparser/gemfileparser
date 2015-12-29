@@ -39,7 +39,9 @@ class GemfileParser(object):
             self.group = ''
 
         def __str__(self):
-            return self.name + ", " + self.requirement
+            return '(' + self.name + ", " + self.requirement + ')'
+
+        __repr__ = __str__
 
     gemfile_regexes = collections.OrderedDict()
     gemfile_regexes['source'] = re.compile(
@@ -120,7 +122,7 @@ class GemfileParser(object):
                             if dep.requirement == '':
                                 dep.requirement = match.group(criteria)
                             else:
-                                dep.requirement += ' ' + match.group(criteria)
+                                dep.requirement += ',' + match.group(criteria)
                         else:
                             setattr(dep, criteria, match.group(criteria))
                         break
