@@ -70,7 +70,8 @@ class GemfileParser(object):
             'development': [],
             'runtime': [],
             'test': [],
-            'production': []
+            'production': [],
+            'metrics': []
         }
         self.contents = self.gemfile.readlines()
         if filepath.endswith('gemspec'):
