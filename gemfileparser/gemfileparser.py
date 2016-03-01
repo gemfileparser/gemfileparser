@@ -50,6 +50,8 @@ class GemfileParser(object):
         r"git:[ ]?(?P<git>[a-zA-Z:\/\.-]+)")
     gemfile_regexes['platform'] = re.compile(
         r"platform:[ ]?(?P<platform>[a-zA-Z:\/\.-]+)")
+    gemfile_regexes['path'] = re.compile(
+        r"path:[ ]?(?P<platform>[a-zA-Z:\/\.-]+)")
     gemfile_regexes['branch'] = re.compile(
         r"branch:[ ]?(?P<branch>[a-zA-Z:\/\.-]+)")
     gemfile_regexes['autorequire'] = re.compile(
