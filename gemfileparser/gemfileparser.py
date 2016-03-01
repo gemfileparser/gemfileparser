@@ -46,8 +46,12 @@ class GemfileParser(object):
     gemfile_regexes = collections.OrderedDict()
     gemfile_regexes['source'] = re.compile(
         r"source:[ ]?(?P<source>[a-zA-Z:\/\.-]+)")
+    gemfile_regexes['git'] = re.compile(
+        r"git:[ ]?(?P<git>[a-zA-Z:\/\.-]+)")
     gemfile_regexes['platform'] = re.compile(
         r"platform:[ ]?(?P<platform>[a-zA-Z:\/\.-]+)")
+    gemfile_regexes['branch'] = re.compile(
+        r"branch:[ ]?(?P<branch>[a-zA-Z:\/\.-]+)")
     gemfile_regexes['autorequire'] = re.compile(
         r"require:[ ]?(?P<autorequire>[a-zA-Z:\/\.-]+)")
     gemfile_regexes['group'] = re.compile(
