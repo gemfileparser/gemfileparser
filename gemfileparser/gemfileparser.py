@@ -35,7 +35,7 @@ class GemfileParser(object):
             self.requirement = ''
             self.autorequire = ''
             self.source = ''
-            self.parent = ''
+            self.parent = []
             self.group = ''
 
         def __str__(self):
@@ -119,7 +119,7 @@ class GemfileParser(object):
                 column_list.append(stripped_column)
             dep = self.Dependency()
             dep.group = GemfileParser.global_group
-            dep.parent = self.appname
+            dep.parent.append(self.appname)
             for column in column_list:
                 # Check for a match in each regex and assign to
                 # corresponding variables
