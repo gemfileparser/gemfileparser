@@ -38,11 +38,6 @@ class GemfileParser(object):
             self.parent = []
             self.group = ''
 
-        def __str__(self):
-            return '(' + self.name + ", " + self.requirement + ')'
-
-        __repr__ = __str__
-
     gemfile_regexes = collections.OrderedDict()
     gemfile_regexes['source'] = re.compile(
         r"source:[ ]?(?P<source>[a-zA-Z:\/\.-]+)")
