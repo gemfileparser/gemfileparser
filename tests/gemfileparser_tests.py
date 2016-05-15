@@ -6,7 +6,12 @@ from gemfileparser import gemfileparser
 
 def test_source_only_gemfile():
     gemparser = gemfileparser.GemfileParser('tests/Gemfile')
-    expected = {'development': [], 'test': [], 'runtime': [], 'metrics': [], 'production': []}
+    expected = {
+        'development': [],
+        'test': [],
+        'runtime': [],
+        'metrics': [],
+        'production': []}
     dependencies = gemparser.parse()
     assert_equal(dependencies, expected)
 
