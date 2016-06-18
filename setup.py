@@ -10,7 +10,7 @@ config = {
     'url': 'https://gitlab.com/balasankarc/gemfileparser',
     'download_url': 'https://gitlab.com/balasankarc/gemfileparser',
     'author_email': 'balasankarc@autistici.org',
-    'version': '0.5',
+    'version': '0.6',
     'license': 'GPL-3+',
     'long_description': '''
 Installation
