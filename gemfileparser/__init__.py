@@ -32,7 +32,7 @@ class GemfileParser(object):
 
         def __init__(self):
             self.name = ''
-            self.requirement = ''
+            self.requirement = []
             self.autorequire = ''
             self.source = ''
             self.parent = []
@@ -123,10 +123,7 @@ class GemfileParser(object):
                     match = criteria_regex.match(column)
                     if match:
                         if criteria == 'requirement':
-                            if dep.requirement == '':
-                                dep.requirement = match.group(criteria)
-                            else:
-                                dep.requirement += ',' + match.group(criteria)
+                            dep.requirement.append(match.group(criteria))
                         else:
                             setattr(dep, criteria, match.group(criteria))
                         break
