@@ -38,6 +38,12 @@ class GemfileParser(object):
             self.parent = []
             self.group = ''
 
+        def __getitem__(self, item):
+            try:
+                return self.__getattribute__(item)
+            except AttributeError:
+                return None
+
     gemfile_regexes = collections.OrderedDict()
     gemfile_regexes['source'] = re.compile(
         r"source:[ ]?(?P<source>[a-zA-Z:\/\.-]+)")
@@ -125,7 +131,8 @@ class GemfileParser(object):
                         if criteria == 'requirement':
                             dep.requirement.append(match.group(criteria))
                         else:
-                            setattr(dep, criteria, match.group(criteria))
+                            if not dep[criteria]:
+                                setattr(dep, criteria, match.group(criteria))
                         break
             if dep.group in self.dependencies:
                 self.dependencies[dep.group].append(dep)
