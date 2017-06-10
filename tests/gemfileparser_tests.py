@@ -25,20 +25,20 @@ def test_name():
 def test_requirement():
     gemparser = GemfileParser('tests/Gemfile_2')
     dependencies = gemparser.parse()
-    assert_equal(dependencies['runtime'][0].requirement, '4.2.4')
+    assert_equal(dependencies['runtime'][0].requirement, [u'4.2.4'])
 
 
 def test_group():
     gemparser = GemfileParser('tests/Gemfile_3')
     dependencies = gemparser.parse()
-    assert_equal(dependencies['development'][0].requirement, '4.2.4')
+    assert_equal(dependencies['development'][0].requirement, [u'4.2.4'])
 
 
 def test_group_block():
     gemparser = GemfileParser('tests/Gemfile_2')
     dependencies = gemparser.parse()
-    assert_equal(dependencies['development'][0].requirement, '3.0.0')
-    assert_equal(dependencies['runtime'][0].requirement, '4.2.4')
+    assert_equal(dependencies['development'][0].requirement, [u'3.0.0'])
+    assert_equal(dependencies['runtime'][0].requirement, [u'4.2.4'])
 
 
 def test_source():
@@ -46,6 +46,13 @@ def test_source():
     dependencies = gemparser.parse()
     assert_equal(dependencies['runtime'][0].source,
                  'http://www.example.com')
+
+
+def test_platforms():
+    gemparser = GemfileParser('tests/Gemfile_5')
+    dependencies = gemparser.parse()
+    assert_equal(dependencies['development'][0].platforms,
+                 u'[:mri, :mingw, :x64_mingw]')
 
 
 def test_gemspec():
