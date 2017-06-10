@@ -31,35 +31,51 @@ class GemfileParser(object):
         ''' A class to hold information about a dependency gem.'''
 
         def __init__(self):
-            self.name = ''
+            self.name = None
             self.requirement = []
-            self.autorequire = ''
-            self.source = ''
+            self.autorequire = None
+            self.source = None
             self.parent = []
-            self.group = ''
+            self.group = None
+            self.platform = None
+            self.platforms = []
+            self.groups = []
+
+        def __str__(self):
+            attributes = self.__dict__
+            output = {}
+            for key, value in attributes.items():
+                if value is None or value == []:
+                    next
+                else:
+                    output[key] = value
+            return str(output)
 
     gemfile_regexes = collections.OrderedDict()
+    gemfile_regexes['name'] = re.compile(r"gem ['\"](?P<name>.*?)['\"]")
     gemfile_regexes['source'] = re.compile(
-        r"source:[ ]?(?P<source>[a-zA-Z:\/\.-]+)")
+        r".*source:[ ]?['\"](?P<source>[a-zA-Z:\/\.-\\]+)['\"].*")
     gemfile_regexes['git'] = re.compile(
-        r"git:[ ]?(?P<git>[a-zA-Z:\/\.-]+)")
+        r".*git:[ ]?(?P<git>[a-zA-Z:\/\.-]+).*")
     gemfile_regexes['platform'] = re.compile(
-        r"platform:[ ]?(?P<platform>[a-zA-Z:\/\.-]+)")
+        r".*platform:[ ]?(?P<platform>[a-zA-Z:\/\.-]+).*")
+    gemfile_regexes['platforms'] = re.compile(
+        r".*platforms:[ ]?(?P<platforms>\[.*\]),.*")
     gemfile_regexes['path'] = re.compile(
-        r"path:[ ]?(?P<path>[a-zA-Z:\/\.-]+)")
+        r".*path:[ ]?(?P<path>[a-zA-Z:\/\.-]+).*")
     gemfile_regexes['branch'] = re.compile(
-        r"branch:[ ]?(?P<branch>[a-zA-Z:\/\.-]+)")
+        r".*branch:[ ]?(?P<branch>[a-zA-Z:\/\.-]+).*")
     gemfile_regexes['autorequire'] = re.compile(
-        r"require:[ ]?(?P<autorequire>[a-zA-Z:\/\.-]+)")
+        r".*require:[ ]?(?P<autorequire>[a-zA-Z:\/\.-]+).*")
     gemfile_regexes['group'] = re.compile(
-        r"group:[ ]?(?P<group>[a-zA-Z:\/\.-]+)")
-    gemfile_regexes['name'] = re.compile(
-        r"(?P<name>[a-zA-Z]+[\.0-9a-zA-Z _-]*)")
+        r".*group:[ ]?(?P<group>[a-zA-Z:\/\.-]+).*")
+    gemfile_regexes['groups'] = re.compile(
+        r".*groups:[ ]?(?P<groups>\[.*\]),.*")
     gemfile_regexes['requirement'] = re.compile(
-        r"(?P<requirement>([>|<|=|~>|\d]+[ ]*[0-9\.\w]+[ ,]*)+)")
+        r"gem[ ]['\"].*?['\"](?P<requirement>([>|<|=|~>|\d]+[ ]*[0-9\.\w]+[ ,]*)+).*")
     global_group = 'runtime'
     group_block_regex = re.compile(
-        r"group[ ]?:[ ]?(?P<groupblock>.*?) do")
+        r".*group[ ]?:[ ]?(?P<groupblock>.*?) do")
     add_dvtdep_regex = re.compile(
         r".*add_development_dependency (?P<line>.*)")
     add_rundep_regex = re.compile(
@@ -104,33 +120,26 @@ class GemfileParser(object):
             line = unicode(line)
         except NameError:
             pass
-        linefile = io.StringIO(line)    # csv requires a file object
-        for line in csv.reader(linefile, delimiter=','):
-            column_list = []
-            for column in line:
-                stripped_column = column.replace("'", "")
-                stripped_column = stripped_column.replace('"', "")
-                stripped_column = stripped_column.strip()
-                column_list.append(stripped_column)
-            dep = self.Dependency()
-            dep.group = GemfileParser.global_group
+        dep = self.Dependency()
+        dep.group = GemfileParser.global_group
+        if not self.appname:
+            dep.parent = []
+        else:
             dep.parent.append(self.appname)
-            for column in column_list:
-                # Check for a match in each regex and assign to
-                # corresponding variables
-                for criteria in GemfileParser.gemfile_regexes:
-                    criteria_regex = GemfileParser.gemfile_regexes[criteria]
-                    match = criteria_regex.match(column)
-                    if match:
-                        if criteria == 'requirement':
-                            dep.requirement.append(match.group(criteria))
-                        else:
-                            setattr(dep, criteria, match.group(criteria))
-                        break
-            if dep.group in self.dependencies:
-                self.dependencies[dep.group].append(dep)
-            else:
-                self.dependencies[dep.group] = [dep]
+        # Check for a match in each regex and assign to
+        # corresponding variables
+        for criteria in GemfileParser.gemfile_regexes:
+            criteria_regex = GemfileParser.gemfile_regexes[criteria]
+            match = criteria_regex.match(line)
+            if match:
+                if criteria == 'requirement':
+                    dep.requirement.append(match.group(criteria))
+                else:
+                    setattr(dep, criteria, match.group(criteria))
+        if dep.group in self.dependencies:
+            self.dependencies[dep.group].append(dep)
+        else:
+            self.dependencies[dep.group] = [dep]
 
     def parse_gemfile(self, path=''):
         '''Parses a Gemfile and returns a dict of categorized dependencies.'''
@@ -159,7 +168,6 @@ class GemfileParser(object):
                 gemspec_file = gemspec_list[0]
                 self.parse_gemspec(path=os.path.join(gemfiledir, gemspec_file))
             elif line.startswith('gem '):
-                line = line[3:]
                 self.parse_line(line)
         return self.dependencies
 
