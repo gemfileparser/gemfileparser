@@ -25,9 +25,11 @@ import collections
 
 
 class GemfileParser(object):
+
     '''Creates a GemfileParser object to perform operations. '''
 
     class Dependency(object):
+
         ''' A class to hold information about a dependency gem.'''
 
         def __init__(self):
@@ -54,28 +56,28 @@ class GemfileParser(object):
     gemfile_regexes = collections.OrderedDict()
     gemfile_regexes['name'] = re.compile(r"gem ['\"](?P<name>.*?)['\"]")
     gemfile_regexes['source'] = re.compile(
-        r".*source:[ ]?['\"](?P<source>[a-zA-Z:\/\.-\\]+)['\"].*")
+        r".*source(:|[ ]?=>)[ ]*['\"](?P<source>[a-zA-Z:\/\.-\\]+)['\"].*")
     gemfile_regexes['git'] = re.compile(
-        r".*git:[ ]?(?P<git>[a-zA-Z:\/\.-]+).*")
+        r".*git(:|[ ]?=>)[ ]*(?P<git>[a-zA-Z:\/\.-]+).*")
     gemfile_regexes['platform'] = re.compile(
-        r".*platform:[ ]?(?P<platform>[a-zA-Z:\/\.-]+).*")
+        r".*platform(:|[ ]?=>)[ ]*(?P<platform>[a-zA-Z:\/\.-]+).*")
     gemfile_regexes['platforms'] = re.compile(
-        r".*platforms:[ ]?(?P<platforms>\[.*\]),.*")
+        r".*platforms(:|[ ]?=>)[ ]*(?P<platforms>\[.*\])[,]?.*")
     gemfile_regexes['path'] = re.compile(
-        r".*path:[ ]?(?P<path>[a-zA-Z:\/\.-]+).*")
+        r".*path(:|[ ]?=>)[ ]*(?P<path>.+['\"\)]).*")
     gemfile_regexes['branch'] = re.compile(
-        r".*branch:[ ]?(?P<branch>[a-zA-Z:\/\.-]+).*")
+        r".*branch(:|[ ]?=>)[ ]*(?P<branch>[a-zA-Z:\/\.-]+).*")
     gemfile_regexes['autorequire'] = re.compile(
-        r".*require:[ ]?(?P<autorequire>[a-zA-Z:\/\.-]+).*")
+        r".*require(:|[ ]?=>)[ ]*(?P<autorequire>[a-zA-Z:\/\.-]+).*")
     gemfile_regexes['group'] = re.compile(
-        r".*group:[ ]?(?P<group>[a-zA-Z:\/\.-]+).*")
+        r".*group(:|[ ]?=>)[ ]*(?P<group>[a-zA-Z:\/\.-]+).*")
     gemfile_regexes['groups'] = re.compile(
-        r".*groups:[ ]?(?P<groups>\[.*\]),.*")
+        r".*groups(:|[ ]?=>)[ ]*(?P<groups>\[.*\]),.*")
     gemfile_regexes['requirement'] = re.compile(
         r"gem[ ]['\"].*?['\"](?P<requirement>([>|<|=|~>|\d]+[ ]*[0-9\.\w]+[ ,]*)+).*")
     global_group = 'runtime'
     group_block_regex = re.compile(
-        r".*group[ ]?:[ ]?(?P<groupblock>.*?) do")
+        r".*group[ ]?(:|[ ]?=>)[ ]*(?P<groupblock>.*?) do")
     add_dvtdep_regex = re.compile(
         r".*add_development_dependency (?P<line>.*)")
     add_rundep_regex = re.compile(
