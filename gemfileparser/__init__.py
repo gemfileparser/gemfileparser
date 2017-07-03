@@ -167,8 +167,12 @@ class GemfileParser(object):
                 if len(gemspec_list) > 1:
                     print("Multiple gemspec files found")
                     continue
-                gemspec_file = gemspec_list[0]
-                self.parse_gemspec(path=os.path.join(gemfiledir, gemspec_file))
+                elif len(gemspec_list) < 1:
+                    print("No gemspec file found. Ignoring the gemspec call")
+                else:
+                    gemspec_file = gemspec_list[0]
+                    self.parse_gemspec(
+                        path=os.path.join(gemfiledir, gemspec_file))
             elif line.startswith('gem '):
                 self.parse_line(line)
         return self.dependencies
