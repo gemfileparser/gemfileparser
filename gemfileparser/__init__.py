@@ -65,6 +65,8 @@ class GemfileParser(object):
         r".*platforms(:|[ ]?=>)[ ]*(?P<platforms>\[.*\])[,]?.*")
     gemfile_regexes['path'] = re.compile(
         r".*path(:|[ ]?=>)[ ]*(?P<path>.+['\"\)]).*")
+    gemfile_regexes['github'] = re.compile(
+        r".*github(:|[ ]?=>)[ ]*[\'\"](?P<github>[a-zA-Z:\/\.-0-9]+)[\'\"].*")
     gemfile_regexes['branch'] = re.compile(
         r".*branch(:|[ ]?=>)[ ]*(?P<branch>[a-zA-Z:\/\.-]+).*")
     gemfile_regexes['autorequire'] = re.compile(
