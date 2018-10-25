@@ -10,8 +10,8 @@ config = {
     'url': 'https://gitlab.com/balasankarc/gemfileparser',
     'download_url': 'https://gitlab.com/balasankarc/gemfileparser',
     'author_email': 'balasankarc@autistici.org',
-    'version': '0.6.2',
-    'license': 'GPL-3+',
+    'version': '0.7.0',
+    'license': 'GPL-3+ and MIT',
     'long_description': '''
 Installation
 ~~~~~~~~~~~~
@@ -73,12 +73,12 @@ Example
 Copyright
 ~~~~~~~~~
 
-2015 Balasankar C balasankarc@autistici.org
+2015-2018 Balasankar C balasankarc@autistici.org
 
 License
 ~~~~~~~
 
-gemfileparser is released under `GNU GPL version 3 (or above) License`_.
+gemfileparser is released under two licenses: `GNU GPL version 3 (or above) License` and `MIT License`_.
 
 .. _GNU GPL version 3 (or above) License: http://www.gnu.org/licenses/gpl
 ''',
@@ -93,6 +93,7 @@ setup(
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+        'License :: OSI Approved :: MIT',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.4',
     ], **config)
