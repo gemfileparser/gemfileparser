@@ -5,7 +5,7 @@ Parse Ruby Gemfile's using Python. Supports Gemfiles and .gemspec files.
 If using pip, use the command `sudo pip install gemfileparser`  
 Else use the following commands
 ```
-git clone https://github.com/balasankarc/gemfileparser.git
+git clone https://github.com/gemfileparser/gemfileparser.git
 cd gemfileparser
 python setup.py install
 ```
@@ -48,8 +48,8 @@ for key in deps:
 ```
 
 ### Copyright
-2020 Gemfileparser authors (listed in AUTHORS file)
-2015-2018 Balasankar C <balasankarc@autistici.org>
+* 2020 Gemfileparser authors (listed in AUTHORS file)
+* 2015-2018 Balasankar C <balasankarc@autistici.org>
 
 ### License
 
