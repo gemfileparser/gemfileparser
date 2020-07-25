@@ -47,9 +47,11 @@ class GemfileParser(object):
     group_block_regex = re.compile(
         r"group[ ]?:[ ]?(?P<groupblock>.*?) do")
     add_dvtdep_regex = re.compile(
-        r".*add_development_dependency (?P<line>.*)")
+        r".*add_development_dependency(?P<line>.*)")
     add_rundep_regex = re.compile(
-        r".*add_runtime_dependency (?P<line>.*)")
+        r".*add_runtime_dependency(?P<line>.*)")
+    add_dep_regex = re.compile(
+        r".*dependency(?P<line>.*)")
 
     def __init__(self, filepath, appname=''):
         self.filepath = filepath    # Required when calls to gemspec occurs
@@ -58,12 +60,14 @@ class GemfileParser(object):
         self.dependencies = {
             'development': [],
             'runtime': [],
+            'dependency': [],
             'test': [],
             'production': [],
             'metrics': []
         }
         self.contents = self.gemfile.readlines()
-        if filepath.endswith('gemspec'):
+        path = ('gemspec', 'podspec')
+        if filepath.endswith(path):
             self.gemspec = True
         else:
             self.gemspec = False
@@ -96,6 +100,11 @@ class GemfileParser(object):
             for column in line:
                 stripped_column = column.replace("'", "")
                 stripped_column = stripped_column.replace('"', "")
+                stripped_column = stripped_column.replace("%q<", "")
+                stripped_column = stripped_column.replace("(", "")
+                stripped_column = stripped_column.replace(")", "")
+                stripped_column = stripped_column.replace("[", "")
+                stripped_column = stripped_column.replace("]", "")
                 stripped_column = stripped_column.strip()
                 column_list.append(stripped_column)
             dep = self.Dependency()
@@ -165,6 +174,10 @@ class GemfileParser(object):
                 match = GemfileParser.add_rundep_regex.match(line)
                 if match:
                     GemfileParser.global_group = 'runtime'
+                else:
+                    match = GemfileParser.add_dep_regex.match(line)
+                    if match:
+                        GemfileParser.global_group = 'dependency'
             if match:
                 line = match.group('line')
                 self.parse_line(line)
