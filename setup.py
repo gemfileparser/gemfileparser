@@ -7,8 +7,8 @@ except ImportError:
 config = {
     'description': "Parse Ruby's Gemfiles",
     'author': 'Balasankar C',
-    'url': 'https://gitlab.com/balasankarc/gemfileparser',
-    'download_url': 'https://gitlab.com/balasankarc/gemfileparser',
+    'url': 'https://github.com/gemfileparser/gemfileparser',
+    'download_url': 'https://github.com/gemfileparser/gemfileparser',
     'author_email': 'balasankarc@autistici.org',
     'version': '0.7.0',
     'license': 'GPL-3+ and MIT',

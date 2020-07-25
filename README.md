@@ -48,11 +48,14 @@ for key in deps:
 ```
 
 ### Copyright
+2020 Gemfileparser authors (listed in AUTHORS file)
 2015-2018 Balasankar C <balasankarc@autistici.org>
 
 ### License
-gemfileparser is dual-licensed under [GNU GPL version 3 (or above) License](http://www.gnu.org/licenses/gpl) and [MIT License](https://opensource.org/licenses/MIT).
 
-Personally, I prefer anyone using this to respect the GPL license and use that
-itself for derivative works - thus making them also Free Software. But, your
-call.
+gemfileparser is dual-licensed under [GNU GPL version 3 (or above) License](http://www.gnu.org/licenses/gpl)
+and [MIT License](https://opensource.org/licenses/MIT).
+
+It is preferred anyone using this project to respect the GPL-3+ license and use
+that itself for derivative works - thus making them also Free Software. But,
+your call.
