@@ -66,8 +66,7 @@ class GemfileParser(object):
             'metrics': []
         }
         self.contents = self.gemfile.readlines()
-        path = ('gemspec', 'podspec')
-        if filepath.endswith(path):
+        if filepath.endswith(('.gemspec', '.podspec')):
             self.gemspec = True
         else:
             self.gemspec = False
