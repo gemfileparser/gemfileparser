@@ -53,9 +53,13 @@ for key in deps:
 
 ### License
 
-gemfileparser is dual-licensed under [GNU GPL version 3 (or above) License](http://www.gnu.org/licenses/gpl)
-and [MIT License](https://opensource.org/licenses/MIT).
+gemfileparser is dual-licensed under your choice of the
+[GNU GPL version 3 (or later) License](http://www.gnu.org/licenses/gpl)
+or the [MIT License](https://opensource.org/licenses/MIT).
 
 It is preferred anyone using this project to respect the GPL-3+ license and use
 that itself for derivative works - thus making them also Free Software. But,
 your call.
+
+When making contributions to gemfileparser you agree to license these contributions
+under the same choice of licenses.
