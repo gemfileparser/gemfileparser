@@ -16,7 +16,7 @@ config = {
 Installation
 ~~~~~~~~~~~~
 
-| If using pip, use the command ``sudo pip install gemfileparser``
+| If using pip, use the command ``sudo pip install gemfileparser2``
 | Else use the following commands
 
 ::
@@ -30,7 +30,7 @@ Usage
 
 ::
 
-    from gemfileparser import GemfileParser
+    from gemfileparser2 import GemfileParser
     parser = GemfileParser(<path to Gemfile>, <name of the application (optional)>)
     dependency_dictionary = parser.parse()
 
@@ -61,7 +61,7 @@ Example
 
 ::
 
-    from gemfileparser import GemfileParser
+    from gemfileparser2 import GemfileParser
     n = GemfileParser('Gemfile', 'diaspora')
     deps = n.parse()
     for key in deps:
@@ -85,9 +85,9 @@ or `MIT License`_.
 ''',
     'install_requires': [],
     'tests_require': [],
-    'packages': ['gemfileparser'],
+    'packages': ['gemfileparser2'],
     'scripts': [],
-    'name': 'gemfileparser'
+    'name': 'gemfileparser2'
 }
 
 setup(
