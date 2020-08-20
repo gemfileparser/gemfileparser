@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright 2015 Balasankar C <balasankarc@autistici.org>
+# Copyright (c) Balasankar C <balasankarc@autistici.org>
 
 # gemfileparser is dual-licensed under [GNU GPL version 3 (or above) License]
 # (http://www.gnu.org/licenses/gpl)
@@ -46,53 +46,62 @@
 from gemfileparser import GemfileParser
 
 
-def test_source_only_gemfile():
-    gemparser = GemfileParser('tests/Gemfile')
-    expected = {
-        'dependency': [],
-        'development': [],
-        'test': [],
-        'metrics': [],
-        'runtime': [],
-        'production': [],
+def check_gemparser_results(test_file, regen=False):
+    """
+    Run GemfileParser.parse on `test_file` and check against a JSON file that
+    contains expected results with the same name as the `test_file` with a
+    "-expected.json" suffix appended.
+    """
+    import json
+
+    gemparser = GemfileParser(test_file)
+    dependencies = {
+        group: [dep.to_dict() for dep in deps]
+            for group, deps in gemparser.parse().items()
     }
-    dependencies = gemparser.parse()
+
+    expected_file = test_file + '-expected.json'
+    if regen:
+        with open(expected_file, 'w') as o:
+            json.dump(dependencies, o, indent=2)
+
+    with open(expected_file) as o:
+        expected = json.load(o)
+
     assert expected == dependencies
 
 
-def test_name():
-    gemparser = GemfileParser('tests/Gemfile_2')
-    dependencies = gemparser.parse()
-    assert 'rails' == dependencies['runtime'][0].name
+def test_source_only_gemfile():
+    check_gemparser_results('tests/Gemfile')
 
 
-def test_requirement():
-    gemparser = GemfileParser('tests/Gemfile_2')
-    dependencies = gemparser.parse()
-    assert ['4.2.4'] == dependencies['runtime'][0].requirement
+def test_gemfile_1():
+    check_gemparser_results('tests/Gemfile_1')
 
 
-def test_group():
-    gemparser = GemfileParser('tests/Gemfile_3')
-    dependencies = gemparser.parse()
-    assert ['4.2.4'] == dependencies['development'][0].requirement
+def test_gemfile_2():
+    check_gemparser_results('tests/Gemfile_2')
 
 
-def test_group_block():
-    gemparser = GemfileParser('tests/Gemfile_2')
-    dependencies = gemparser.parse()
-    assert ['3.0.0'] == dependencies['development'][0].requirement
-    assert ['4.2.4'] == dependencies['runtime'][0].requirement
+def test_gemfile_3():
+    check_gemparser_results('tests/Gemfile_3')
 
 
-def test_source():
-    gemparser = GemfileParser('tests/Gemfile_2')
-    dependencies = gemparser.parse()
-    assert 'http://www.example.com' == dependencies['runtime'][0].source
+def test_gemfile_4():
+    check_gemparser_results('tests/Gemfile_4')
 
 
-def test_gemspec():
-    gemparser = GemfileParser('tests/Gemfile_2')
-    dependencies = gemparser.parse()
-    assert 'rails' in [x.name for x in dependencies['runtime']]
-    assert 'responders' in [x.name for x in dependencies['development']]
+def test_gemfile_platforms():
+    check_gemparser_results('tests/Gemfile_5')
+
+
+def test_gemspec_1():
+    check_gemparser_results('tests/sample.gemspec')
+
+
+def test_gemspec_2():
+    check_gemparser_results('tests/address_standardization.gemspec')
+
+
+def test_gemspec_3():
+    check_gemparser_results('tests/arel.gemspec')

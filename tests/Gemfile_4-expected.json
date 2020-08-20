@@ -1,0 +1,19 @@
+{
+  "development": [],
+  "runtime": [
+    {
+      "name": "rails",
+      "requirement": [],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    }
+  ],
+  "dependency": [],
+  "test": [],
+  "production": [],
+  "metrics": []
+}

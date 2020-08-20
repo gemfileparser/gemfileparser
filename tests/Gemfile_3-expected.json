@@ -1,0 +1,21 @@
+{
+  "development": [
+    {
+      "name": "rails",
+      "requirement": [
+        "4.2.4"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    }
+  ],
+  "runtime": [],
+  "dependency": [],
+  "test": [],
+  "production": [],
+  "metrics": []
+}

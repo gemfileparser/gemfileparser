@@ -1,0 +1,119 @@
+{
+  "development": [
+    {
+      "name": "mcmire-context",
+      "requirement": [
+        ">= 0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    },
+    {
+      "name": "mcmire-matchy",
+      "requirement": [
+        ">= 0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    }
+  ],
+  "runtime": [
+    {
+      "name": "mechanize",
+      "requirement": [
+        ">= 0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    }
+  ],
+  "dependency": [
+    {
+      "name": "mechanize",
+      "requirement": [
+        ">= 0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "dependency"
+    },
+    {
+      "name": "mcmire-context",
+      "requirement": [
+        ">= 0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "dependency"
+    },
+    {
+      "name": "mcmire-matchy",
+      "requirement": [
+        ">= 0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "dependency"
+    },
+    {
+      "name": "mechanize",
+      "requirement": [
+        ">= 0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "dependency"
+    },
+    {
+      "name": "mcmire-context",
+      "requirement": [
+        ">= 0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "dependency"
+    },
+    {
+      "name": "mcmire-matchy",
+      "requirement": [
+        ">= 0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "dependency"
+    }
+  ],
+  "test": [],
+  "production": [],
+  "metrics": []
+}
