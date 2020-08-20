@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 #
-# Copyright 2015 Balasankar C <balasankarc@autistici.org>
+# Copyright (c) Balasankar C <balasankarc@autistici.org> and others
 
 # gemfileparser is dual-licensed under [GNU GPL version 3 (or above) License]
-# (http://www.gnu.org/licenses/gpl) 
+# (http://www.gnu.org/licenses/gpl)
 # and [MIT License](https://opensource.org/licenses/MIT).
 
 # Personally, I prefer anyone using this to respect the GPL license and use that
@@ -22,8 +22,8 @@
 # .
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
+#
+#
 # MIT License
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -32,10 +32,10 @@
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -98,7 +98,7 @@ class GemfileParser(object):
         r".*dependency(?P<line>.*)")
 
     def __init__(self, filepath, appname=''):
-        self.filepath = filepath    # Required when calls to gemspec occurs
+        self.filepath = filepath  # Required when calls to gemspec occurs
         self.gemfile = open(filepath)
         self.appname = appname
         self.dependencies = {
@@ -137,7 +137,7 @@ class GemfileParser(object):
             line = unicode(line)
         except NameError:
             pass
-        linefile = io.StringIO(line)    # csv requires a file object
+        linefile = io.StringIO(line)  # csv requires a file object
         for line in csv.reader(linefile, delimiter=','):
             column_list = []
             for column in line:
@@ -233,3 +233,20 @@ class GemfileParser(object):
             return self.parse_gemspec()
         else:
             return self.parse_gemfile()
+
+
+def command_line():
+    """
+    A minimal command line entry point.
+    """
+    import sys
+    if len(sys.argv) < 2:
+        print("Usage : parsegemfile <input file>")
+        sys.exit(0)
+
+    parsed = GemfileParser(sys.argv[1])
+    output = parsed.parse()
+    for key, value in list(output.items()):
+        print(key, ":")
+        for item in value:
+            print("\t", item)
