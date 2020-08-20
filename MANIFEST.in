@@ -1,0 +1,12 @@
+graft gemfileparser
+graft tests
+
+include AUTHORS
+include LICENSE.GPLv3
+include LICENSE.MIT
+include MANIFEST.in
+include README.rst
+include setup.cfg
+include setup.py
+
+global-exclude *.py[co] __pycache__ *.*~
