@@ -63,6 +63,16 @@ Example
                print("\t", dependency)
 
 
+Tests
+~~~~~
+
+Do this to run tests::
+
+    pip install -e .
+    pip install pytest
+    pytest -vvs tests
+
+
 Copyright
 ~~~~~~~~~
 * Copyright (c) 2020 Gemfileparser authors (listed in AUTHORS file)
