@@ -1,64 +1,80 @@
-# gemfileparser
-Parse Ruby Gemfile using Python. Support Ruby Gemfiles and .gemspec files
+=============
+gemfileparser
+=============
+
+gemfileparser parses Ruby Gemfile using Python with supports Ruby Gemfiles and .gemspec files
 as well as Cocoapod .podspec files.
 
-### Installation
-In a virtualenv, use the command `pip install gemfileparser`  
 
-Else if using a git clone, use the following commands:
+Installation
+~~~~~~~~~~~~
 
-```
-git clone https://github.com/gemfileparser/gemfileparser.git
-cd gemfileparser
-python setup.py install
-```
+In a virtualenv, use the command::
 
-### Usage
-```
-from gemfileparser import GemfileParser
-parser = GemfileParser(<path to Gemfile>, <name of the application (optional)>)
-dependency_dictionary = parser.parse()
-```
-The parse() method returns a dict object of the following format
-```
-{
-'development': [list of dependency objects inside group 'development'],
-'runtime': [list of runtime dependency objects],
-.
-.
-.}
-```
+    pip install gemfileparser
+
+Otherwise from a git clone, use the following commands in a virtualenv::
+
+    git clone https://github.com/gemfileparser/gemfileparser.git
+    cd gemfileparser
+	python setup.py install
+
+
+Usage
+~~~~~
+
+::
+
+    from gemfileparser import GemfileParser
+    parser = GemfileParser(<path to Gemfile>, <name of the application (optional)>)
+    dependency_dictionary = parser.parse()
+
+The parse() method returns a dict object of the following format::
+
+    {
+    'development': [list of dependency objects inside group 'development'],
+    'runtime': [list of runtime dependency objects],
+    .
+    .
+    .}
+
 Each dependency object contains the following attributes:
-```
-name - Name of the gem
-requirement - Version requirement
-autorequire - Autorequire value
-source - Source URL of the gem
-parent - Dependency of which gem
-group - Group in which gem is a member of (default : runtime)
-```
 
-#### Example
-```
-from gemfileparser import GemfileParser
-n = GemfileParser('Gemfile', 'diaspora')
-deps = n.parse()
-for key in deps:
-   if deps[key]:
-       print key
-       for dependency in deps[key]:
-           print "\t", dependency
-```
+- name - Name of the gem
+- requirement - Version requirement
+- autorequire - Autorequire value
+- source - Source URL of the gem
+- parent - Dependency of which gem
+- group - Group that a gem is a member of (default : runtime)
 
-### Copyright
+
+Example
+~~~~~~~
+
+::
+
+    from gemfileparser import GemfileParser
+    n = GemfileParser('Gemfile', 'diaspora')
+    deps = n.parse()
+    for key in deps:
+       if deps[key]:
+           print key
+           for dependency in deps[key]:
+               print("\t", dependency)
+
+
+Copyright
+~~~~~~~~~
 * Copyright (c) 2020 Gemfileparser authors (listed in AUTHORS file)
 * Copyright (c) 2015-2018 Balasankar C <balasankarc@autistici.org>
 
-### License
+
+License
+~~~~~~~
 
 gemfileparser is dual-licensed under your choice of the
-[GNU GPL version 3 (or later) License](http://www.gnu.org/licenses/gpl)
-or the [MIT License](https://opensource.org/licenses/MIT).
+`GNU GPL version 3 (or later) License <http://www.gnu.org/licenses/gpl>`_
+or the `MIT License <https://opensource.org/licenses/MIT>`_.
 
 It is preferred anyone using this project to respect the GPL-3+ license and use
 that itself for derivative works - thus making them also Free Software. But,
