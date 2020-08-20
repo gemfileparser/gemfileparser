@@ -1,9 +1,12 @@
 # gemfileparser
-Parse Ruby Gemfile's using Python. Supports Gemfiles and .gemspec files.
+Parse Ruby Gemfile using Python. Support Ruby Gemfiles and .gemspec files
+as well as Cocoapod .podspec files.
 
 ### Installation
-If using pip, use the command `sudo pip install gemfileparser`  
-Else use the following commands
+In a virtualenv, use the command `pip install gemfileparser`  
+
+Else if using a git clone, use the following commands:
+
 ```
 git clone https://github.com/gemfileparser/gemfileparser.git
 cd gemfileparser
@@ -25,7 +28,7 @@ The parse() method returns a dict object of the following format
 .
 .}
 ```
-Each dependency object contains the following attributes
+Each dependency object contains the following attributes:
 ```
 name - Name of the gem
 requirement - Version requirement
@@ -48,8 +51,8 @@ for key in deps:
 ```
 
 ### Copyright
-* 2020 Gemfileparser authors (listed in AUTHORS file)
-* 2015-2018 Balasankar C <balasankarc@autistici.org>
+* Copyright (c) 2020 Gemfileparser authors (listed in AUTHORS file)
+* Copyright (c) 2015-2018 Balasankar C <balasankarc@autistici.org>
 
 ### License
 
