@@ -46,27 +46,40 @@
 
 '''Python library to parse Ruby's Gemfiles and gemspec files.'''
 
-import csv
-import io
-import re
-import os
-import glob
 import collections
+import csv
+import glob
+import io
+import os
+import re
+
+
+class Dependency(object):
+    ''' A class to hold information about a dependency gem.'''
+
+    def __init__(self):
+        self.name = ''
+        self.requirement = []
+        self.autorequire = ''
+        self.source = ''
+        self.parent = []
+        self.group = ''
+
+    def to_dict(self):
+        return dict(
+            name=self.name,
+            requirement=self.requirement,
+            autorequire=self.autorequire,
+            source=self.source,
+            parent=self.parent,
+            group=self.group,
+        )
 
 
 class GemfileParser(object):
     '''Creates a GemfileParser object to perform operations. '''
 
-    class Dependency(object):
-        ''' A class to hold information about a dependency gem.'''
-
-        def __init__(self):
-            self.name = ''
-            self.requirement = []
-            self.autorequire = ''
-            self.source = ''
-            self.parent = []
-            self.group = ''
+    Dependency = Dependency
 
     gemfile_regexes = collections.OrderedDict()
     gemfile_regexes['source'] = re.compile(
