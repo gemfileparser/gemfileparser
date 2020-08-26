@@ -1,0 +1,1125 @@
+{
+  "development": [],
+  "runtime": [
+    {
+      "name": "rails",
+      "requirement": [
+        "4.2.4"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "responders",
+      "requirement": [
+        "2.1.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "unicorn",
+      "requirement": [
+        "4.9.0"
+      ],
+      "autorequire": "true",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "diaspora_federation-rails",
+      "requirement": [
+        "0.0.6"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "acts_as_api",
+      "requirement": [
+        "0.4.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "json",
+      "requirement": [
+        "1.8.3"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "json-schema",
+      "requirement": [
+        "2.5.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "devise",
+      "requirement": [
+        "3.5.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "devise_lastseenable",
+      "requirement": [
+        "0.0.6"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "devise-token_authenticatable",
+      "requirement": [
+        "~> 0.4.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "simple_captcha2",
+      "requirement": [
+        "0.3.4"
+      ],
+      "autorequire": "simple",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "sidekiq",
+      "requirement": [
+        "3.4.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "sinatra",
+      "requirement": [
+        "1.4.6"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "sidetiq",
+      "requirement": [
+        "0.6.3"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "uglifier",
+      "requirement": [
+        "2.7.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "configurate",
+      "requirement": [
+        "0.3.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rack-cors",
+      "requirement": [
+        "0.4.0"
+      ],
+      "autorequire": "rack/cors",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "bootstrap-sass",
+      "requirement": [
+        "2.3.2.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "compass-rails",
+      "requirement": [
+        "2.0.4"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "sass-rails",
+      "requirement": [
+        "5.0.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "autoprefixer-rails",
+      "requirement": [
+        "5.2.1.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "mysql2",
+      "requirement": [
+        "0.3.18 "
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "pg",
+      "requirement": [
+        "0.18.2 "
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "activerecord-import",
+      "requirement": [
+        "0.10.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "carrierwave",
+      "requirement": [
+        "0.10.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "fog",
+      "requirement": [
+        "1.32.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "mini_magick",
+      "requirement": [
+        "4.2.7"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "remotipart",
+      "requirement": [
+        "1.2.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "uuid",
+      "requirement": [
+        "2.3.8"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "entypo-rails",
+      "requirement": [
+        "2.2.3"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "backbone-on-rails",
+      "requirement": [
+        "1.2.0.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "handlebars_assets",
+      "requirement": [
+        "0.20.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "jquery-rails",
+      "requirement": [
+        "4.0.4"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "jquery-ui-rails",
+      "requirement": [
+        "5.0.5"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "js_image_paths",
+      "requirement": [
+        "0.0.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "js-routes",
+      "requirement": [
+        "1.0.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-jquery",
+      "requirement": [
+        "1.11.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-markdown-it",
+      "requirement": [
+        "4.4.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-markdown-it-hashtag",
+      "requirement": [
+        "0.3.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-markdown-it-diaspora-mention",
+      "requirement": [
+        "0.3.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-markdown-it-sanitizer",
+      "requirement": [
+        "0.3.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-markdown-it--markdown-it-for-inline",
+      "requirement": [
+        "0.1.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-markdown-it-sub",
+      "requirement": [
+        "1.0.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-markdown-it-sup",
+      "requirement": [
+        "1.0.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-highlightjs",
+      "requirement": [
+        "8.6.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-jeresig--jquery.hotkeys",
+      "requirement": [
+        "0.2.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-jquery-placeholder",
+      "requirement": [
+        "2.1.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-jquery-textchange",
+      "requirement": [
+        "0.2.3"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-perfect-scrollbar",
+      "requirement": [
+        "0.6.4"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-jakobmattsson--jquery-elastic",
+      "requirement": [
+        "1.6.11"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "facebox-rails",
+      "requirement": [
+        "0.2.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "http_accept_language",
+      "requirement": [
+        "2.0.5"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "i18n-inflector-rails",
+      "requirement": [
+        "1.0.7"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-i18n",
+      "requirement": [
+        "4.0.4"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "markerb",
+      "requirement": [
+        "1.0.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "messagebus_ruby_api",
+      "requirement": [
+        "1.0.3"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "nokogiri",
+      "requirement": [
+        "1.6.6.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "redcarpet",
+      "requirement": [
+        "3.3.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "twitter-text",
+      "requirement": [
+        "1.12.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "roxml",
+      "requirement": [
+        "3.1.6"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "ruby-oembed",
+      "requirement": [
+        "0.8.14"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "open_graph_reader",
+      "requirement": [
+        "0.6.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "omniauth",
+      "requirement": [
+        "1.2.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "omniauth-facebook",
+      "requirement": [
+        "2.0.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "omniauth-tumblr",
+      "requirement": [
+        "1.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "omniauth-twitter",
+      "requirement": [
+        "1.2.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "twitter",
+      "requirement": [
+        "5.14.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "omniauth-wordpress",
+      "requirement": [
+        "0.2.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "active_model_serializers",
+      "requirement": [
+        "0.9.3"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "diaspora-vines",
+      "requirement": [
+        "~> 0.2.0.develop"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-assets-diaspora_jsxc",
+      "requirement": [
+        "~> 0.1.4.alpha",
+        "< 0.1.4.develop"
+      ],
+      "autorequire": "",
+      "source": "https://rails-assets.org",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "acts-as-taggable-on",
+      "requirement": [
+        "3.5.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "addressable",
+      "requirement": [
+        "2.3.8"
+      ],
+      "autorequire": "addressable/uri",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "faraday",
+      "requirement": [
+        "0.9.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "faraday_middleware",
+      "requirement": [
+        "0.10.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "faraday-cookie_jar",
+      "requirement": [
+        "0.0.6"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "typhoeus",
+      "requirement": [
+        "0.7.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "gon",
+      "requirement": [
+        "6.0.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "haml",
+      "requirement": [
+        "4.0.6"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "mobile-fu",
+      "requirement": [
+        "1.3.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "will_paginate",
+      "requirement": [
+        "3.0.7"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rails-timeago",
+      "requirement": [
+        "2.11.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "logging-rails",
+      "requirement": [
+        "0.5.0"
+      ],
+      "autorequire": "logging/rails",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "rubyzip",
+      "requirement": [
+        "1.1.7"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    },
+    {
+      "name": "minitest",
+      "requirement": [],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    }
+  ],
+  "dependency": [],
+  "test": [],
+  "production": [
+    {
+      "name": "rails_admin",
+      "requirement": [
+        "0.7.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "production"
+    },
+    {
+      "name": "rack-google-analytics",
+      "requirement": [
+        "1.2.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "production"
+    },
+    {
+      "name": "rack-piwik",
+      "requirement": [
+        "0.3.0"
+      ],
+      "autorequire": "rack/piwik",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "production"
+    },
+    {
+      "name": "rack-protection",
+      "requirement": [
+        "1.5.3"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "production"
+    },
+    {
+      "name": "eye",
+      "requirement": [
+        "0.7.pre"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "production"
+    },
+    {
+      "name": "rack-rewrite",
+      "requirement": [
+        "1.5.1"
+      ],
+      "autorequire": "false",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "production"
+    },
+    {
+      "name": "rack-ssl",
+      "requirement": [
+        "1.4.1"
+      ],
+      "autorequire": "rack/ssl",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "production"
+    },
+    {
+      "name": "asset_sync",
+      "requirement": [
+        "1.1.0"
+      ],
+      "autorequire": "false",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "production"
+    }
+  ],
+  "metrics": []
+}

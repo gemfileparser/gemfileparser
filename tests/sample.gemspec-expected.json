@@ -1,0 +1,64 @@
+{
+  "development": [
+    {
+      "name": "rake-compiler",
+      "requirement": [
+        ">= 0.7.5"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    },
+    {
+      "name": "rspec",
+      "requirement": [
+        ">= 2.0.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    },
+    {
+      "name": "activesupport",
+      "requirement": [],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    },
+    {
+      "name": "json",
+      "requirement": [],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    }
+  ],
+  "runtime": [
+    {
+      "name": "redmine",
+      "requirement": [],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    }
+  ],
+  "dependency": [],
+  "test": [],
+  "production": [],
+  "metrics": []
+}
