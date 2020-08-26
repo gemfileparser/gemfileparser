@@ -2,8 +2,8 @@
 gemfileparser
 =============
 
-gemfileparser parses Ruby Gemfile using Python with supports Ruby Gemfiles and .gemspec files
-as well as Cocoapod .podspec files.
+gemfileparser parses Ruby Gemfile using Python with supports Ruby Gemfiles
+and .gemspec files as well as Cocoapod .podspec files.
 
 
 Installation
@@ -32,11 +32,11 @@ Usage
 The parse() method returns a dict object of the following format::
 
     {
-    'development': [list of dependency objects inside group 'development'],
-    'runtime': [list of runtime dependency objects],
-    .
-    .
-    .}
+        'development': [list of dependency objects inside group 'development'],
+        'runtime': [list of runtime dependency objects],
+        .
+        .
+    }
 
 Each dependency object contains the following attributes:
 
