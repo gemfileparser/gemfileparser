@@ -1,0 +1,82 @@
+{
+  "development": [
+    {
+      "name": "minitest",
+      "requirement": [
+        ">= 2.0.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    },
+    {
+      "name": "hoe",
+      "requirement": [
+        ">= 2.9.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    }
+  ],
+  "runtime": [],
+  "dependency": [
+    {
+      "name": "minitest",
+      "requirement": [
+        ">= 2.0.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "dependency"
+    },
+    {
+      "name": "hoe",
+      "requirement": [
+        ">= 2.9.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "dependency"
+    },
+    {
+      "name": "minitest",
+      "requirement": [
+        ">= 2.0.2"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "dependency"
+    },
+    {
+      "name": "hoe",
+      "requirement": [
+        ">= 2.9.1"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "dependency"
+    }
+  ],
+  "test": [],
+  "production": [],
+  "metrics": []
+}

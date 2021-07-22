@@ -1,0 +1,34 @@
+{
+  "development": [
+    {
+      "name": "responders",
+      "requirement": [
+        "3.0.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    }
+  ],
+  "runtime": [
+    {
+      "name": "rails",
+      "requirement": [
+        "4.2.4"
+      ],
+      "autorequire": "",
+      "source": "http://www.example.com",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    }
+  ],
+  "dependency": [],
+  "test": [],
+  "production": [],
+  "metrics": []
+}

@@ -1,0 +1,19 @@
+{
+  "development": [
+    {
+      "name": "platforms",
+      "requirement": [],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    }
+  ],
+  "runtime": [],
+  "dependency": [],
+  "test": [],
+  "production": [],
+  "metrics": []
+}
