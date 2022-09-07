@@ -1,0 +1,66 @@
+{
+  "development": [
+    {
+      "name": "logstash-devutils",
+      "requirement": [],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    },
+    {
+      "name": "rspec",
+      "requirement": [
+        "~> 3.9"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    },
+    {
+      "name": "rspec-its",
+      "requirement": [
+        "~>1.3"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    },
+    {
+      "name": "logstash-codec-plain",
+      "requirement": [],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "development"
+    }
+  ],
+  "runtime": [
+    {
+      "name": "logstash-core",
+      "requirement": [
+        ">= 6.0.0"
+      ],
+      "autorequire": "",
+      "source": "",
+      "parent": [
+        ""
+      ],
+      "group": "runtime"
+    }
+  ],
+  "dependency": [],
+  "test": [],
+  "production": [],
+  "metrics": []
+}
