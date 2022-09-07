@@ -65,3 +65,6 @@ def test_gemspec_2():
 
 def test_gemspec_3():
     check_gemparser_results('tests/arel.gemspec')
+
+def test_gemspec_4():
+    check_gemparser_results('tests/logstash-mixin-ecs_compatibility_support.gemspec')
