@@ -1,12 +1,6 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
 
-from setuptools import setup
+import setuptools
 
-
-setup(
-    entry_points={
-        'console_scripts': [
-            'parsegemfile = gemfileparser:command_line',
-        ],
-    },
-)
+if __name__ == "__main__":
+    setuptools.setup()
