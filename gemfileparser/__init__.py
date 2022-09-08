@@ -7,10 +7,6 @@
 Python library to parse Ruby Gemfiles, gemspec and Cocoapods podspec files.
 """
 
-from __future__ import absolute_import
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import collections
 import csv
 import glob
@@ -108,7 +104,6 @@ class GemfileParser(object):
                     column.replace("'", "")
                     .replace('"', "")
                     .replace("%q<", "")
-                    .replace(">", "")
                     .replace("(", "")
                     .replace(")", "")
                     .replace("[", "")
