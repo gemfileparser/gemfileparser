@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-v0.0.0
-------
+v0.9.0
+-------
 
-*xxxx-xx-xx* -- Initial release.
+Rename to gemfileparser2.

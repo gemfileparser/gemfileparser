@@ -1,4 +1,4 @@
-graft gemfileparser
+graft gemfileparser2
 graft tests
 
 include AUTHORS

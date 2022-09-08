@@ -3,7 +3,7 @@
 # Copyright (c) Balasankar C <balasankarc@autistici.org> and others
 # SPDX-License-Identifier: GPL-3.0-or-later OR MIT
 
-from gemfileparser import GemfileParser
+from gemfileparser2 import GemfileParser
 
 
 def check_gemparser_results(test_file, regen=False):
