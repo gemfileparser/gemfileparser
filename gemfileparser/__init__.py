@@ -62,7 +62,7 @@ class GemfileParser(object):
 
     gemspec_add_dvtdep_regex = re.compile(r".*add_development_dependency(?P<line>.*)")
     gemspec_add_rundep_regex = re.compile(r".*add_runtime_dependency(?P<line>.*)")
-    gemspec_add_dep_regex = re.compile(r".*dependency(?P<line>.*)")
+    gemspec_add_dep_regex = re.compile(r".*add_dependency(?P<line>.*)")
 
     def __init__(self, filepath, appname=''):
         self.filepath = filepath
