@@ -28,7 +28,7 @@ def check_gemparser_results(test_file, regen=False):
     with open(expected_file) as o:
         expected = json.load(o)
 
-    assert expected == dependencies
+    assert dependencies == expected
 
 
 def test_source_only_gemfile():
