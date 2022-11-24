@@ -14,6 +14,26 @@ import io
 import os
 import re
 
+TRACE = False
+
+
+def logger_debug(*args):
+    pass
+
+
+if TRACE:
+    import logging
+    import sys
+
+    logger = logging.getLogger(__name__)
+    logging.basicConfig(stream=sys.stdout)
+    logger.setLevel(logging.DEBUG)
+
+    def logger_debug(*args):
+        return logger.debug(' '.join(isinstance(a, str) and a or repr(a) for a in args))
+
+    logger_debug = print
+
 
 class Dependency(object):
     """
@@ -157,10 +177,17 @@ class GemfileParser(object):
                 # Gemfile contains a call to gemspec
                 gemfiledir = os.path.dirname(self.filepath)
                 gemspec_list = glob.glob(os.path.join(gemfiledir, "*.gemspec"))
-                if len(gemspec_list) > 1:
-                    print("Multiple gemspec files found")
+
+                if not gemspec_list:
+                    logger_debug(f"No gemspec files found: {gemspec_list}")
                     continue
+
+                if len(gemspec_list) > 1:
+                    logger_debug("Multiple gemspec files found")
+                    continue
+
                 gemspec_file = gemspec_list[0]
+                # FIXME: the path is not used
                 self.parse_gemspec(path=os.path.join(gemfiledir, gemspec_file))
 
             elif line.startswith("gem "):
