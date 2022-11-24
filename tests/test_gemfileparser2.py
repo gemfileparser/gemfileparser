@@ -71,5 +71,9 @@ def test_gemspec_3():
     check_gemparser_results("gemspecs/arel.gemspec")
 
 
+def test_gemspec_no_deps():
+    check_gemparser_results("gemspecs/arel2.gemspec",  regen=False)
+
+
 def test_gemspec_4():
     check_gemparser_results("gemspecs/logstash-mixin-ecs_compatibility_support.gemspec")
