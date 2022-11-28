@@ -3,10 +3,7 @@
 # Copyright (c) Balasankar C <balasankarc@autistici.org> and others
 # SPDX-License-Identifier: GPL-3.0-or-later OR MIT
 
-import json
 import os
-
-from gemfileparser2 import GemfileParser
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 
@@ -18,7 +15,16 @@ def check_gemparser_results(test_file, regen=False):
     "-expected.json" suffix appended.
     """
     test_file = os.path.join(TEST_DATA_DIR, test_file)
-    gemparser = GemfileParser(test_file)
+
+    from gemfileparser2 import GemfileParser as GemfileParser2
+    from gemfileparser import GemfileParser
+    _check_gemparser_results(test_file, parser=GemfileParser, regen=regen)
+    _check_gemparser_results(test_file, parser=GemfileParser2, regen=regen)
+
+
+def _check_gemparser_results(test_file, parser, regen=False):
+    import json
+    gemparser = parser(test_file)
     dependencies = {
         group: [dep.to_dict() for dep in deps]
         for group, deps in gemparser.parse().items()
@@ -72,7 +78,7 @@ def test_gemspec_3():
 
 
 def test_gemspec_no_deps():
-    check_gemparser_results("gemspecs/arel2.gemspec",  regen=False)
+    check_gemparser_results("gemspecs/arel2.gemspec", regen=False)
 
 
 def test_gemspec_4():
